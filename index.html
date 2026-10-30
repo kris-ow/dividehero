@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#041720">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DIVIDEHERO">
+<title>DIVIDEHERO</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="preload" href="fonts/press-start-2p.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<div id="app">
+
+  <section id="s-splash" class="screen active">
+    <div class="logo"><span class="l1">DIVIDE</span><span class="l2">HERO</span></div>
+    <div class="sub">DIVISION ARCADE</div>
+    <div class="press blink">TAP TO START</div>
+    <div class="credit">CREDIT 01</div>
+  </section>
+
+  <section id="s-menu" class="screen">
+    <div class="logo small"><span class="l1">DIVIDE</span><span class="l2">HERO</span></div>
+    <button class="btn player-btn" data-act="players">PLAYER <b id="m-player">---</b></button>
+    <div class="menu">
+      <button class="btn big" data-act="arcade" data-focus>ARCADE<small id="m-best-arcade"></small></button>
+      <button class="btn" data-act="practice">PRACTICE</button>
+      <button class="btn hard" data-act="hardcore">HARDCORE ÷12<small id="m-best-hardcore"></small></button>
+      <button class="btn" data-act="scores">HIGH SCORES</button>
+      <button class="btn" data-act="stats">MY STATS</button>
+    </div>
+    <div class="row toggles">
+      <button class="tog" data-act="music" id="t-music">MUSIC ON</button>
+      <button class="tog" data-act="sfx" id="t-sfx">SFX ON</button>
+    </div>
+  </section>
+
+  <section id="s-players" class="screen">
+    <h2>WHO'S PLAYING?</h2>
+    <div id="player-list" class="list"></div>
+    <button class="btn go" data-act="newplayer">+ NEW PLAYER</button>
+    <div class="row">
+      <button class="btn small" data-act="editplayers" id="b-edit">EDIT</button>
+      <button class="btn small" data-act="menu">BACK</button>
+    </div>
+  </section>
+
+  <section id="s-new" class="screen">
+    <h2>ENTER YOUR<br>INITIALS</h2>
+    <div class="initials"><span></span><span></span><span></span></div>
+    <div id="letters" class="letters"></div>
+    <div class="row">
+      <button class="btn small" data-act="cancelnew" id="b-cancelnew">CANCEL</button>
+      <button class="btn small go" data-act="saveplayer">OK</button>
+    </div>
+  </section>
+
+  <section id="s-arcade" class="screen">
+    <h2>CHOOSE YOUR<br>SPEED</h2>
+    <div class="menu diff">
+      <button class="btn go" data-diff="easy">EASY<small>14s TO THINK · x0.35 POINTS</small></button>
+      <button class="btn big" data-diff="normal">NORMAL<small>9s TO THINK · x1 POINTS</small></button>
+      <button class="btn hard" data-diff="hard">HARD<small>4.5s TO THINK · x3.5 POINTS</small></button>
+    </div>
+    <p class="hint">TIME GETS SHORTER EVERY LEVEL</p>
+    <button class="btn small" data-act="menu">BACK</button>
+  </section>
+
+  <section id="s-practice" class="screen">
+    <h2>PICK A TABLE</h2>
+    <div id="tables" class="tables"></div>
+    <p class="hint">EVERY FACT, BOTH WAYS. NO TIMER.<br>RIGHT FIRST TIME = STARS</p>
+    <button class="btn small" data-act="menu">BACK</button>
+  </section>
+
+  <section id="s-game" class="screen">
+    <div class="hud">
+      <div class="hud-l"><div class="lbl">SCORE</div><div id="g-score" class="val">0</div></div>
+      <div class="hud-c"><div id="g-lives" class="lives"></div><div id="g-level" class="lbl">LEVEL 1</div></div>
+      <div class="hud-r"><button id="g-pause" class="pause" data-act="pause" aria-label="Pause">II</button></div>
+    </div>
+    <div class="combo-row"><span id="g-combo" class="combo">x1</span><span id="g-streak" class="streak"></span></div>
+    <div class="stage" id="g-stage">
+      <div id="g-q" class="question"></div>
+      <div id="g-a" class="answer"></div>
+      <div id="g-float" class="floats"></div>
+    </div>
+    <div class="timer"><div id="g-timer" class="bar"></div></div>
+    <div class="keypad" id="keypad"></div>
+    <div id="g-banner" class="banner"></div>
+    <div id="g-pauseov" class="overlay">
+      <h2 class="blink">PAUSED</h2>
+      <button class="btn go" data-act="resume">RESUME</button>
+      <button class="btn small" data-act="quit">QUIT</button>
+    </div>
+  </section>
+
+  <section id="s-results" class="screen">
+    <h2 id="r-title">RESULTS</h2>
+    <div id="r-lines" class="tally"></div>
+    <div id="r-total" class="total"></div>
+    <div id="r-badges" class="badges"></div>
+    <div id="r-missed" class="missed"></div>
+    <div class="row" id="r-buttons">
+      <button class="btn go" data-act="again">PLAY AGAIN</button>
+      <button class="btn small" data-act="menu">MENU</button>
+    </div>
+  </section>
+
+  <section id="s-scores" class="screen">
+    <h2>HIGH SCORES</h2>
+    <p class="hint" id="sc-season"></p>
+    <div class="tabs" id="sc-mode">
+      <button class="tab on" data-mode="arcade">ARCADE</button>
+      <button class="tab" data-mode="hardcore">HARDCORE</button>
+    </div>
+    <div class="tabs" id="sc-scope">
+      <button class="tab on" data-scope="me">MINE</button>
+      <button class="tab" data-scope="all">EVERYONE</button>
+      <button class="tab" data-scope="global">GLOBAL</button>
+    </div>
+    <ol id="score-list" class="scores"></ol>
+    <button class="btn small" data-act="menu">BACK</button>
+  </section>
+
+  <section id="s-stats" class="screen">
+    <h2 id="st-title">MY STATS</h2>
+    <div id="st-grid" class="grid"></div>
+    <div class="legend">
+      <span><i class="c-ace"></i>ACED</span><span><i class="c-ok"></i>OK</span>
+      <span><i class="c-slow"></i>SLOW</span><span><i class="c-bad"></i>TRICKY</span>
+    </div>
+    <div id="st-summary" class="hint"></div>
+    <div class="row">
+      <button class="btn small" data-act="statsize" id="st-size">12×12</button>
+      <button class="btn small" data-act="menu">BACK</button>
+    </div>
+  </section>
+
+</div>
+
+<canvas id="fx"></canvas>
+<div id="crt"></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

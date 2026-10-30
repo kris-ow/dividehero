@@ -1,0 +1,12 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <radialGradient id="b1" cx="0.5" cy="0.4" r="0.7"><stop offset="0" stop-color="#0f367a"/><stop offset="1" stop-color="#01080f"/></radialGradient>
+  <linearGradient id="b2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#082148"/><stop offset="1" stop-color="#041720"/></linearGradient>
+  <linearGradient id="b3" gradientUnits="userSpaceOnUse" x1="0" y1="148" x2="0" y2="368"><stop offset="0" stop-color="#ffffff"/><stop offset="0.45" stop-color="#ffe600"/><stop offset="0.55" stop-color="#ff8a00"/><stop offset="1" stop-color="#ff722b"/></linearGradient>
+  <filter id="b4" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ </defs>
+ <rect width="512" height="512" fill="url(#b1)"/>
+ <path d="M256 52 L428 112 L418 290 Q398 408 256 470 Q114 408 94 290 L84 112 Z" fill="url(#b2)" stroke="#00f0ff" stroke-width="18" stroke-linejoin="round" filter="url(#b4)"/>
+ <path d="M256 92 L392 140 L384 286 Q368 380 256 430 Q144 380 128 286 L120 140 Z" fill="none" stroke="#ff722b" stroke-width="6" stroke-linejoin="round"/>
+ <g fill="url(#b3)" filter="url(#b4)"><circle cx="256" cy="178" r="30"/><rect x="166" y="232" width="180" height="52" rx="6"/><circle cx="256" cy="338" r="30"/></g>
+</svg>
